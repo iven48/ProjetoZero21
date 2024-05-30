@@ -1,0 +1,113 @@
+let formData = [];
+
+function enviar() {
+  let isValid = true;
+  campos.forEach((campo, index) => {
+    if (!campo.checkValidity()) {
+      setError(index);
+      isValid = false;
+    } else {
+      setOK(index);
+      formData[index] = campo.value; // Adiciona o valor do campo ao array
+    }
+  });
+
+  if (isValid) {
+    // Redireciona para a próxima página
+    window.location.href = "Contatos.html";
+
+    // Exibe os dados do formulário no console (opcional)
+    console.log(formData);
+  } else {
+    setError();
+  }
+}
+
+const form = document.getElementById('form');
+const campos = document.querySelectorAll('.required');
+const spans = document.querySelectorAll('.span-required');
+const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  nameValidate();
+  namemotherValidate();
+  validarCPF(input);
+
+});
+
+function setError(index) {
+  campos[index].style.border = '2px solid #e63636';
+  spans[index].style.display = 'block';
+}
+function setOK(index) {
+  campos[index].style.border = '';
+  spans[index].style.display = 'none';
+}
+
+function nameValidate() {
+  if (campos[0].value.length < 10) {
+    setError(0)
+  }
+  else {
+    setOK(0)
+  }
+}
+
+function dataNasc() {
+  if (campos[1].value == 0) {
+    setError(1)
+  }
+  else {
+    setOK(1)
+  }
+}
+
+function namemotherValidate() {
+  if (campos[2].value.length < 8) {
+    setError(2)
+  }
+  else {
+    setOK(2)
+  }
+
+}
+
+function validarCPF(input) {
+  // Remove qualquer caracter que não seja número
+  input.value = input.value.replace(/\D/g, '');
+  if (campos[3].value.length < 11) {
+    setError(3)
+  }
+  else {
+    setOK(3)
+  }
+  if (campos[3].value.length == 11) {
+    setOK(3)
+  }
+  else {
+    setError(3)
+  }
+}
+
+function enviar() {
+  let isValid = true; // Variável para rastrear a validade dos campos
+
+  // Verifica a validade de cada campo individualmente
+  campos.forEach((campo, index) => {
+    if (!campo.checkValidity()) {
+      setError(index); // Marca o campo como inválido
+      isValid = false; // Define a variável isValid como false
+    } else {
+      setOK(index); // Marca o campo como válido
+    }
+  });
+
+  if (isValid) {
+    // Redireciona para a próxima página
+    window.location.href = "Contatos.html";
+  } else {
+    // Mostra uma mensagem de erro ou realiza outras ações necessárias
+    setError();
+  }
+}
